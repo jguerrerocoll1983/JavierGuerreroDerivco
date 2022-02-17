@@ -3,12 +3,6 @@ using Question1.Core;
 
 namespace Question1
 {
-    /// <summary>
-    /// Refactoring and bug fixing for Question #1, done by Javier Guerrero Coll, a few considerations about my implementation:
-    /// - separated in different classes to follow the single resposibility priniciple, 
-    /// - avoided to have console.Logs in QuestionOneConverter and used the abstraction ILogger for it, related with Dependency Inversion Principle.
-    /// - didn't setup dependency injection as seemed a bit overkill for this simple exercise.
-    /// </summary>
     public class Program
     {        
         public static int Main(string[] args)
