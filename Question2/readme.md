@@ -60,7 +60,7 @@ Please can you give a written prose on your design choices in question 2
 
 Done by Javier Guerrero Coll: 
 ----------------------------------------------------------------------------
-I tried to taking into account the SOLID principles, I would start my explanation by talking about them in regard my implementation:
+I tried to take into account the SOLID principles, I would start my explanation by talking about them in regard my implementation:
 - Single reponsibility principle, each class has only a reason for change, for instance separating logging responsibility by using an abstraction instead directly calling Console.WriteLine.
 - Open/Close principle, I could have implemented Card differently maybe using inheritance to define different kind of cards, but I thought the entity I have defined for Card is a good approach.
 - Liskov substitution principle, in this case it does not apply as I did not define entities at the same level, as could be different card classes, for instance the wildcard.
