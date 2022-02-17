@@ -1,4 +1,6 @@
-﻿namespace Question2
+﻿using Question2.Interfaces;
+
+namespace Question2.Core
 {
 
     public class Card : ICard

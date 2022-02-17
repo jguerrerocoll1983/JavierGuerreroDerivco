@@ -4,31 +4,31 @@ using Question1.Core;
 namespace Question1
 {
     public class Program
-    {        
+    {
         public static int Main(string[] args)
         {
-            var questionOneConverterVerifier = new QuestionOneConverterVerifier(_logger);
+            var questionOneConverterVerifier = new QuestionOneConverterVerifier(Logger);
 
             var stringToAnalyse = GetStringToAnalyse(args);
 
             if (questionOneConverterVerifier.Verify(stringToAnalyse))
             {
-                _logger.LogInformation("Test succeeded");
+                Logger.LogInformation("Test succeeded");
                 return 0;
             }
 
-            _logger.LogError("Test failed");
+            Logger.LogError("Test failed");
             return -1;
         }
 
-        private readonly static ILogger _logger = GetConsoleLogger();
+        private static readonly ILogger Logger = GetConsoleLogger();
 
         private static string GetStringToAnalyse(string[] args)
         {
-            var test_string = args?.Length == 1 ? args[0] : "This is a test string";
-            _logger.LogInformation("Analysing test_string: {test_string}", test_string);
+            var testString = args.Length == 1 ? args[0] : "This is a test string";
+            Logger.LogInformation("Analysing test_string: {test_string}", testString);
 
-            return test_string;
+            return testString;
         }
 
         private static ILogger GetConsoleLogger()

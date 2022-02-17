@@ -1,7 +1,8 @@
-﻿
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
+using Question2.Configuration;
+using Question2.Interfaces;
 
-namespace Question2
+namespace Question2.Core
 {
     public class HighCardGame : ICardGame
     {
@@ -27,30 +28,30 @@ namespace Question2
         public int RemainingCards => CardDecks.Sum(d => d.RemainingCards);
 
         private CardGameConfiguration CardGameConfiguration { get; }
-        private List<CardDeck> CardDecks { get; set; }
+        private List<CardDeck> CardDecks { get; }
 
         public void Play()
         {
             var playerOneCurrentCard = GetCard();
             var playerTwoCurrentCard = GetCard();
 
-            _logger.LogInformation($"\nRound {CurrentRound}");
-            _logger.LogInformation($"'{CardGameConfiguration.PlayerOneName}' got a '{playerOneCurrentCard.GetCardDisplayName()}'");
-            _logger.LogInformation($"'{CardGameConfiguration.PlayerTwoName}' got a '{playerTwoCurrentCard.GetCardDisplayName()}'");
+            _logger.LogInformation("\nRound {CurrentRound}", CurrentRound);
+            _logger.LogInformation("'{CardGameConfiguration.PlayerOneName}' got a '{playerOneCurrentCard.GetCardDisplayName()}'", CardGameConfiguration.PlayerOneName, playerOneCurrentCard.GetCardDisplayName());
+            _logger.LogInformation("'{CardGameConfiguration.PlayerTwoName}' got a '{playerTwoCurrentCard.GetCardDisplayName()}'", CardGameConfiguration.PlayerTwoName, playerTwoCurrentCard.GetCardDisplayName());
 
             var result = RoundWinner(playerOneCurrentCard, playerTwoCurrentCard);
             switch (result)
             {
                 case RoundWinnerEnum.PlayerOneWins:
-                    _logger.LogInformation($"{CardGameConfiguration.PlayerOneName} wins!");
+                    _logger.LogInformation("{CardGameConfiguration.PlayerOneName} wins!", CardGameConfiguration.PlayerOneName);
                     break;
 
                 case RoundWinnerEnum.PlayerTwoWins:
-                    _logger.LogInformation($"{CardGameConfiguration.PlayerTwoName} wins!");
+                    _logger.LogInformation("{CardGameConfiguration.PlayerTwoName} wins!", CardGameConfiguration.PlayerTwoName);
                     break;
 
                 case RoundWinnerEnum.Tie:
-                    _logger.LogInformation($"It is a tie!");
+                    _logger.LogInformation("It is a tie!");
                     if (CardGameConfiguration.AreTiesAllowed)
                     {
                         _logger.LogInformation("Draw is enabled. The game ends in a tie!");
@@ -58,6 +59,9 @@ namespace Question2
                     }
                     ResolveTie();
                     break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
 
@@ -87,21 +91,17 @@ namespace Question2
                     {
                         return RoundWinnerEnum.PlayerOneWins;
                     }
-                    else if (indexOfSuitPlayerOne < indexOfSuitPlayerTwo)
+                    if (indexOfSuitPlayerOne < indexOfSuitPlayerTwo)
                     {
                         return RoundWinnerEnum.PlayerTwoWins;
                     }
                 }
                 return RoundWinnerEnum.Tie;
             }
-            else if (playerOneCard.Number > playerTwoCard.Number)
-            {
-                return RoundWinnerEnum.PlayerOneWins;
-            }
-            else
-            {
-                return RoundWinnerEnum.PlayerTwoWins;
-            }
+
+            return playerOneCard.Number > playerTwoCard.Number ? 
+                RoundWinnerEnum.PlayerOneWins : 
+                RoundWinnerEnum.PlayerTwoWins;
         }
 
         private void ResolveTie()

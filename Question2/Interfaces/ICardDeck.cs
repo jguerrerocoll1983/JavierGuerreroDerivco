@@ -1,4 +1,4 @@
-﻿namespace Question2
+﻿namespace Question2.Interfaces
 {
     public interface ICardDeck
     {

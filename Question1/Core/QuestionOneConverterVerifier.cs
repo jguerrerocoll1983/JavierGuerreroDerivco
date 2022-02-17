@@ -18,12 +18,12 @@ namespace Question1.Core
         /// <summary>
         /// Given a string returns true if after encoding a string and decoding the encoded version, the result is the same as the input string.
         /// </summary>
-        /// <param name="test_string"></param>
+        /// <param name="testString"></param>
         /// <returns></returns>
-        public bool Verify(string test_string)
+        public bool Verify(string testString)
         {
-            var result = _questionOneConverter.Decode(_questionOneConverter.Encode(test_string));
-            return test_string == result;
+            var result = _questionOneConverter.Decode(_questionOneConverter.Encode(testString));
+            return testString == result;
         }
     }
 }

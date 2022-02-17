@@ -1,4 +1,4 @@
-﻿namespace Question2
+﻿namespace Question2.Core
 {
     public enum RoundWinnerEnum
     {

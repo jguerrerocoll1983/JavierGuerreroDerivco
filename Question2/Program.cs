@@ -1,11 +1,13 @@
 ﻿
 using Microsoft.Extensions.Logging;
+using Question2.Configuration;
+using Question2.Core;
 
 namespace Question2
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             var cardGameConfiguration = new CardGameConfiguration(
                 playerOneName: "Player One",
@@ -17,15 +19,15 @@ namespace Question2
                 addJoker: true,
                 areTiesAllowed: true);
 
-            var card = new HighCardGame(cardGameConfiguration, _logger);
+            var card = new HighCardGame(cardGameConfiguration, Logger);
             card.Play();
         }
 
-        private readonly static ILogger _logger = GetConsoleLogger();
+        private static readonly ILogger Logger = GetConsoleLogger();
 
         private static ILogger GetConsoleLogger()
         {
-            using ILoggerFactory loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
+            using var loggerFactory = LoggerFactory.Create(builder => builder.AddConsole());
             return loggerFactory.CreateLogger<Program>();
         }
     }

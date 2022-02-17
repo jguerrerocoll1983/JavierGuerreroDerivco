@@ -85,9 +85,9 @@ namespace Question1.Core
 
                 while (bits >= 8)
                 {
-                    int mask = 0x000000ff << (bits % 8);
+                    var mask = 0x000000ff << (bits % 8);
                     output[c++] = (char)((reflex & mask) >> (bits % 8));
-                    int invert = ~mask;
+                    var invert = ~mask;
                     reflex &= invert;
                     bits -= 8;
                 }

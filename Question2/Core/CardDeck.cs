@@ -1,4 +1,6 @@
-﻿namespace Question2
+﻿using Question2.Interfaces;
+
+namespace Question2.Core
 {
     public class CardDeck : ICardDeck
     {
@@ -45,7 +47,7 @@
 
             if (suits.Length != suits.Distinct().Count())
             {
-                throw new ArgumentException("There cannot be repated names for suits");
+                throw new ArgumentException("There cannot be repeated names for suits");
             }
         }
 
